@@ -1,69 +1,92 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- Image View -->
+    <!-- Background Image with contentDescription for accessibility -->
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="408dp"
-        android:layout_height="211dp"
+        android:id="@+id/background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/party"
+        android:scaleType="centerCrop"
+        android:alpha="0.5"
+        android:contentDescription="background_description" />
+
+    <!-- Buttons with consistent styling and proper text references -->
+    <Button
+        android:id="@+id/marriage_button"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/orange"
+        android:text="marriage"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        app:layout_constraintWidth_percent="0.8" />
 
-    <!-- Marriage Button -->
     <Button
-        android:id="@+id/button"
-        android:layout_width="329dp"
-        android:layout_height="67dp"
+        android:id="@+id/birthday_button"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/orange"
-        android:text="Marriage"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:text="birthday_party"
+        app:layout_constraintTop_toBottomOf="@id/marriage_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintWidth_percent="0.8" />
 
-    <!-- Birthday Party Button -->
     <Button
-        android:id="@+id/button2"
-        android:layout_width="320dp"
-        android:layout_height="64dp"
+        android:id="@+id/event_button"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/orange"
-        android:text="Birthday Party"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        android:text="event"
+        app:layout_constraintTop_toBottomOf="@id/birthday_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintWidth_percent="0.8" />
 
-    <!-- Another Button (ethavathu) -->
     <Button
-        android:id="@+id/button3"
-        android:layout_width="328dp"
-        android:layout_height="53dp"
+        android:id="@+id/other_button"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/orange"
-        android:text="Ethavathu"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
+        android:text="other"
+        app:layout_constraintTop_toBottomOf="@id/event_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintWidth_percent="0.8" />
 
-    <!-- Another Button (Innonu) -->
     <Button
-        android:id="@+id/button4"
-        android:layout_width="319dp"
-        android:layout_height="55dp"
+        android:id="@+id/login_button"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
         android:backgroundTint="@color/orange"
-        android:text="Innonu"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
+        android:text="login"
+        app:layout_constraintTop_toBottomOf="@id/other_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintWidth_percent="0.4" />
+
+    <Button
+        android:id="@+id/register_button"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/orange"
+        android:text="egister"
+        app:layout_constraintTop_toBottomOf="@id/login_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
