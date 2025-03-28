@@ -7,7 +7,7 @@ import android.widget.Button
 import com.example.mad_project.R
 import com.example.mad_project.SecondActivity
 
-import com.example.mad_project.register
+import com.example.mad_project.RegisterActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         registerButton.setOnClickListener {
-            val registerIntent = Intent(this, register::class.java)
+            val registerIntent = Intent(this, RegisterActivity::class.java)
             startActivity(registerIntent)
         }
 

@@ -26,7 +26,7 @@ class SecondActivity : AppCompatActivity() {
         val spinner3 = findViewById<Spinner>(R.id.spinner3)
         val spinner4 = findViewById<Spinner>(R.id.spinner4)
 
-        val spinnerOptions = arrayOf("Option 1", "Option 2", "Option 3", "Option 4")
+        val spinnerOptions = arrayOf("Food", "Decoration", "Drink", "snak")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerOptions)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -51,7 +51,7 @@ class SecondActivity : AppCompatActivity() {
             .setItems(options) { _, which ->
                 when (which) {
                     0 -> startActivity(Intent(this, LoginActivity::class.java))
-                    1 -> startActivity(Intent(this, register::class.java))
+                    1 -> startActivity(Intent(this, RegisterActivity::class.java))
                 }
             }
             .show()

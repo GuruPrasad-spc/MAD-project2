@@ -7,26 +7,33 @@
     tools:context=".MainActivity">
 
     <!-- Background Image with contentDescription for accessibility -->
+
+    <!-- Buttons with consistent styling and proper text references -->
+
     <ImageView
         android:id="@+id/background_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/party"
-        android:scaleType="centerCrop"
+        android:layout_marginEnd="8dp"
         android:alpha="0.5"
-        android:contentDescription="background_description" />
+        android:contentDescription="background_description"
+        android:scaleType="centerCrop"
+        android:src="@drawable/party"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <!-- Buttons with consistent styling and proper text references -->
     <Button
         android:id="@+id/marriage_button"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="184dp"
         android:backgroundTint="@color/orange"
         android:text="marriage"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.8" />
 
     <Button
@@ -83,10 +90,20 @@
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/orange"
-        android:text="egister"
+        android:text="register"
         app:layout_constraintTop_toBottomOf="@id/login_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.4" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Project name"
+        android:textSize="25dp"
+        tools:layout_editor_absoluteX="149dp"
+        tools:layout_editor_absoluteY="85dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

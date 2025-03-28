@@ -2,16 +2,13 @@ package com.example.mad_project
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.example.mad_project.R
-import java.io.IOException
 
-class register : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
     private lateinit var profileImageView: ImageView
     private lateinit var firstNameInput: EditText
@@ -40,7 +37,7 @@ class register : AppCompatActivity() {
         passwordInput = findViewById(R.id.passwordInput)
         confirmPasswordInput = findViewById(R.id.confirmPasswordInput)
         registerButton = findViewById(R.id.button8)
-        selectImageButton = findViewById(R.id.profileImageView)  // Correctly referencing the button
+        selectImageButton = findViewById(R.id.selectImageButton)  // Correct reference
 
         // Select image button click listener
         selectImageButton.setOnClickListener {
@@ -65,7 +62,7 @@ class register : AppCompatActivity() {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             selectedImageUri = data.data
-            profileImageView.setImageURI(selectedImageUri)  // Use setImageURI() for efficiency
+            profileImageView.setImageURI(selectedImageUri)  // Display the selected image
         }
     }
 
