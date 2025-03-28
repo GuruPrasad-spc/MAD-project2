@@ -1,3 +1,5 @@
+package com.example.mad_project
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle

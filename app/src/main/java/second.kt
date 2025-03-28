@@ -1,6 +1,6 @@
 package com.example.mad_project
 
-import LoginActivity
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
