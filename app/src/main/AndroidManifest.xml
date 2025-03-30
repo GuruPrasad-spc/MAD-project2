@@ -19,7 +19,7 @@
         android:theme="@style/Theme.MADproject">
 
         <activity
-            android:name=".Main"
+            android:name=".firstpage"
             android:exported="true"
             tools:ignore="MissingClass,WrongManifestParent">
             <intent-filter>
@@ -35,6 +35,8 @@
         <activity android:name=".login" android:exported="true"
             tools:ignore="MissingClass,WrongManifestParent" />
         <activity android:name=".EventActivity" android:exported="true"
+            tools:ignore="Instantiatable,MissingClass,WrongManifestParent" />
+        <activity android:name=".Main" android:exported="true"
             tools:ignore="Instantiatable,MissingClass,WrongManifestParent" />
     </application>
 
