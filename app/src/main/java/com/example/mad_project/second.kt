@@ -16,6 +16,7 @@ class second : AppCompatActivity() {
         val continueButton = findViewById<Button>(R.id.button6)
         val totalBudget = findViewById<EditText>(R.id.editTextNumber)
         val textView5 = findViewById<TextView>(R.id.textView5)
+        val summaryTextView = findViewById<TextView>(R.id.textView5) // TextView for displaying results
 
         val spinner1 = findViewById<Spinner>(R.id.spinner)
         val spinner2 = findViewById<Spinner>(R.id.spinner2)
@@ -41,9 +42,26 @@ class second : AppCompatActivity() {
             finish()
         }
 
-        // Continue button - Show Login/Register Dialog
+        // Continue button - Calculate budget split and show Login/Register Dialog
         continueButton.setOnClickListener {
-            showLoginRegisterDialog()
+            val budgetText = totalBudget.text.toString()
+            if (budgetText.isNotEmpty()) {
+                val budget = budgetText.toDouble()
+                val pref1 = budget * 0.4
+                val pref2 = budget * 0.3
+                val pref3 = budget * 0.2
+                val pref4 = budget * 0.1
+
+                val result = "Budget Allocation:\n${spinner1.selectedItem}: \$${"%.2f".format(pref1)}\n" +
+                        "${spinner2.selectedItem}: \$${"%.2f".format(pref2)}\n" +
+                        "${spinner3.selectedItem}: \$${"%.2f".format(pref3)}\n" +
+                        "${spinner4.selectedItem}: \$${"%.2f".format(pref4)}"
+
+                summaryTextView.text = result // Display split amounts
+                showLoginRegisterDialog() // Show login/register dialog after budget calculation
+            } else {
+                Toast.makeText(this, "Please enter a total budget", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
