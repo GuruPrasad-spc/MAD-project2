@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -20,6 +23,9 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var selectImageButton: Button
 
     private var selectedImageUri: Uri? = null
+    private val auth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
+    private val storage = FirebaseStorage.getInstance().reference
 
     companion object {
         private const val PICK_IMAGE_REQUEST = 1
@@ -37,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
         passwordInput = findViewById(R.id.passwordInput)
         confirmPasswordInput = findViewById(R.id.confirmPasswordInput)
         registerButton = findViewById(R.id.button8)
-        selectImageButton = findViewById(R.id.selectImageButton)  // Correct reference
+        selectImageButton = findViewById(R.id.selectImageButton)
 
         // Select image button click listener
         selectImageButton.setOnClickListener {
@@ -75,19 +81,59 @@ class RegisterActivity : AppCompatActivity() {
         val confirmPassword = confirmPasswordInput.text.toString().trim()
 
         if (validateInputs(firstName, lastName, email, password, confirmPassword)) {
-            val imageMessage = if (selectedImageUri != null) {
-                " with profile image"
-            } else {
-                " without profile image"
-            }
-
-            Toast.makeText(this, "Registered successfully$imageMessage!", Toast.LENGTH_LONG).show()
-
-            // Navigate to login activity
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val userId = auth.currentUser?.uid
+                        userId?.let { uid ->
+                            if (selectedImageUri != null) {
+                                uploadProfileImage(uid, firstName, lastName, email)
+                            } else {
+                                saveUserToFirestore(uid, firstName, lastName, email, null)
+                            }
+                        }
+                    } else {
+                        Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                    }
+                }
         }
+    }
+
+    // Upload profile image to Firebase Storage
+    private fun uploadProfileImage(userId: String, firstName: String, lastName: String, email: String) {
+        val imageRef = storage.child("profile_images/$userId.jpg")
+        selectedImageUri?.let { uri ->
+            imageRef.putFile(uri)
+                .addOnSuccessListener {
+                    imageRef.downloadUrl.addOnSuccessListener { downloadUri ->
+                        saveUserToFirestore(userId, firstName, lastName, email, downloadUri.toString())
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Image upload failed", Toast.LENGTH_SHORT).show()
+                    saveUserToFirestore(userId, firstName, lastName, email, null)
+                }
+        }
+    }
+
+    // Save user data to Firestore
+    private fun saveUserToFirestore(userId: String, firstName: String, lastName: String, email: String, imageUrl: String?) {
+        val user = hashMapOf(
+            "firstName" to firstName,
+            "lastName" to lastName,
+            "email" to email,
+            "profileImageUrl" to (imageUrl ?: "")
+        )
+
+        firestore.collection("users").document(userId).set(user)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Registered successfully!", Toast.LENGTH_LONG).show()
+                startActivity(Intent(this, login::class.java))
+                finish()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to save data: ${e.message}", Toast.LENGTH_LONG).show()
+            }
     }
 
     // Validate user inputs
@@ -98,7 +144,6 @@ class RegisterActivity : AppCompatActivity() {
         password: String,
         confirmPassword: String
     ): Boolean {
-
         if (firstName.isEmpty()) {
             firstNameInput.error = "First name is required"
             return false

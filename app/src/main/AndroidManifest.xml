@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.mad_project"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- ✅ Permissions should be before <application> -->
+    <uses-permission android:name="android.permission.INTERNET" />  <!-- Required for Firebase -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -18,23 +18,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MADproject">
 
-        <!-- ✅ Main Activity (Launcher) -->
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".Main"
+            android:exported="true"
+            tools:ignore="MissingClass,WrongManifestParent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- ✅ Other Activities -->
-        <activity android:name=".SecondActivity" />
-        <activity android:name=".RegisterActivity" android:exported="true" />
-        <activity android:name=".LoginActivity" android:exported="true"/>
-        <activity android:name=".EventActivity" android:exported="true" />
-
-
+        <activity android:name=".second" android:exported="true"
+            tools:ignore="MissingClass,WrongManifestParent" />
+        <activity android:name=".RegisterActivity" android:exported="true"
+            tools:ignore="MissingClass,WrongManifestParent" />
+        <activity android:name=".login" android:exported="true"
+            tools:ignore="MissingClass,WrongManifestParent" />
+        <activity android:name=".EventActivity" android:exported="true"
+            tools:ignore="Instantiatable,MissingClass,WrongManifestParent" />
     </application>
 
 </manifest>

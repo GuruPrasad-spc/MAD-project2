@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:ignore="MissingClass">
 
     <!-- Background Image with contentDescription for accessibility -->
 
@@ -102,8 +103,8 @@
         android:layout_height="wrap_content"
         android:text="Project name"
         android:textSize="25dp"
-        tools:layout_editor_absoluteX="149dp"
-        tools:layout_editor_absoluteY="85dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="123dp"
+        tools:layout_editor_absoluteY="92dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

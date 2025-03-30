@@ -1,15 +1,11 @@
 package com.example.mad_project
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import com.example.mad_project.R
-import com.example.mad_project.SecondActivity
+import androidx.appcompat.app.AppCompatActivity
 
-import com.example.mad_project.RegisterActivity
-
-class MainActivity : AppCompatActivity() {
+class Main : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,36 +19,38 @@ class MainActivity : AppCompatActivity() {
         val loginButton = findViewById<Button>(R.id.login_button)
         val registerButton = findViewById<Button>(R.id.register_button)
 
-        // Navigate to SecondPage activity for event buttons
-        val eventIntent = Intent(this, SecondActivity::class.java)
-
+        // Navigate to SecondActivity with event type
         marriageButton.setOnClickListener {
-            startActivity(eventIntent)
+            navigateToSecondActivity("Marriage")
         }
 
         birthdayButton.setOnClickListener {
-            startActivity(eventIntent)
+            navigateToSecondActivity("Birthday")
         }
 
         eventButton.setOnClickListener {
-            startActivity(eventIntent)
+            navigateToSecondActivity("Event")
         }
 
         otherButton.setOnClickListener {
-            startActivity(eventIntent)
+            navigateToSecondActivity("Other")
         }
 
-        // Navigate to LoginActivity for login button
+        // Navigate to LoginActivity
         loginButton.setOnClickListener {
-            val loginIntent = Intent(this, LoginActivity::class.java)
-            startActivity(loginIntent)
+            startActivity(Intent(this, login::class.java))
         }
 
+        // Navigate to RegisterActivity
         registerButton.setOnClickListener {
-            val registerIntent = Intent(this, RegisterActivity::class.java)
-            startActivity(registerIntent)
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
-
-    }
     }
 
+    private fun navigateToSecondActivity(eventType: String) {
+        val intent = Intent(this, second::class.java).apply {
+            putExtra("EVENT_TYPE", eventType) // Pass event type
+        }
+        startActivity(intent)
+    }
+}

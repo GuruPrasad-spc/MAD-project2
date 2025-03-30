@@ -138,8 +138,8 @@
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="307dp"
-        android:layout_height="0dp"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/orange"
         android:minWidth="48dp"
@@ -153,8 +153,8 @@
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="241dp"
-        android:layout_height="0dp"
+        android:layout_width="289dp"
+        android:layout_height="48dp"
         android:backgroundTint="@color/orange"
         android:text="Continue to Book"
         app:layout_constraintBottom_toBottomOf="parent"
