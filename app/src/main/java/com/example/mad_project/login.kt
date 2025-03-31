@@ -41,8 +41,13 @@ class login : AppCompatActivity() {
                     // Successful login
                     Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
 
-                    // Navigate to another activity
-                    val intent = Intent(this, Main::class.java)
+                    // Check if we should navigate to EventActivity
+                    val shouldNavigateToEvent = intent.getBooleanExtra("NAVIGATE_TO_EVENT", false)
+                    val intent = if (shouldNavigateToEvent) {
+                        Intent(this, EventActivity::class.java)
+                    } else {
+                        Intent(this, Main::class.java)
+                    }
                     startActivity(intent)
                     finish()
                 } else {

@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class second : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.secondpage)
+
+        auth = FirebaseAuth.getInstance()
 
         // UI Elements
         val backButton = findViewById<Button>(R.id.button5)
@@ -58,7 +63,16 @@ class second : AppCompatActivity() {
                         "${spinner4.selectedItem}: \$${"%.2f".format(pref4)}"
 
                 summaryTextView.text = result // Display split amounts
-                showLoginRegisterDialog() // Show login/register dialog after budget calculation
+                
+                // Check if user is already logged in
+                if (auth.currentUser != null) {
+                    // User is already logged in, navigate to EventActivity
+                    startActivity(Intent(this, EventActivity::class.java))
+                    finish()
+                } else {
+                    // User is not logged in, show login/register dialog
+                    showLoginRegisterDialog()
+                }
             } else {
                 Toast.makeText(this, "Please enter a total budget", Toast.LENGTH_SHORT).show()
             }
@@ -71,7 +85,11 @@ class second : AppCompatActivity() {
             .setTitle("Choose an option")
             .setItems(options) { _, which ->
                 when (which) {
-                    0 -> startActivity(Intent(this, login::class.java))
+                    0 -> {
+                        val intent = Intent(this, login::class.java)
+                        intent.putExtra("NAVIGATE_TO_EVENT", true)
+                        startActivity(intent)
+                    }
                     1 -> startActivity(Intent(this, RegisterActivity::class.java))
                 }
             }
