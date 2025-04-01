@@ -146,14 +146,4 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Project name"
-        android:textSize="25dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="123dp"
-        tools:layout_editor_absoluteY="92dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

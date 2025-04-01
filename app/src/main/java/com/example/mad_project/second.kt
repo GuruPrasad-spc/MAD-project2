@@ -2,6 +2,8 @@ package com.example.mad_project
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -23,7 +25,8 @@ class second : AppCompatActivity() {
         val continueButton = findViewById<Button>(R.id.button6)
         val totalBudget = findViewById<EditText>(R.id.editTextNumber)
         val textView5 = findViewById<TextView>(R.id.textView5)
-        val summaryTextView = findViewById<TextView>(R.id.textView5)
+        val summaryTextView = findViewById<TextView>(R.id.summaryText)
+        val actualBudgetText = findViewById<TextView>(R.id.actualBudgetText)
 
         val spinner1 = findViewById<Spinner>(R.id.spinner)
         val spinner2 = findViewById<Spinner>(R.id.spinner2)
@@ -58,6 +61,37 @@ class second : AppCompatActivity() {
         spinner3.adapter = adapter
         spinner4.adapter = adapter
 
+        // Add TextWatcher for real-time budget calculation
+        totalBudget.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                val budgetText = s.toString()
+                if (budgetText.isNotEmpty()) {
+                    try {
+                        val budget = budgetText.toDouble()
+                        val venue = budget * 0.4
+                        val catering = budget * 0.25
+                        val decoration = budget * 0.15
+                        val entertainment = budget * 0.1
+                        val miscellaneous = budget * 0.1
+
+                        val result = "Venue: \$${"%.2f".format(venue)}\n" +
+                                "Catering: \$${"%.2f".format(catering)}\n" +
+                                "Decoration: \$${"%.2f".format(decoration)}\n" +
+                                "Entertainment: \$${"%.2f".format(entertainment)}\n" +
+                                "Miscellaneous: \$${"%.2f".format(miscellaneous)}"
+
+                        actualBudgetText.text = result
+                    } catch (e: NumberFormatException) {
+                        actualBudgetText.text = "Please enter a valid number"
+                    }
+                } else {
+                    actualBudgetText.text = "Enter your budget to see the distribution"
+                }
+            }
+        })
+
         // Back button
         backButton.setOnClickListener {
             finish()
@@ -82,8 +116,9 @@ class second : AppCompatActivity() {
                 
                 // Check if user is already logged in
                 if (auth.currentUser != null) {
-                    // User is already logged in, navigate to EventActivity
-                    val intent = Intent(this, EventActivity::class.java)
+                    // User is already logged in, navigate to EventPlannersActivity with budget
+                    val intent = Intent(this, EventPlannersActivity::class.java)
+                    intent.putExtra("budget", budget)
                     startActivity(intent)
                     finish()
                 } else {

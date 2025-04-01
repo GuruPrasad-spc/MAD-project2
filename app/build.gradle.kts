@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.firebase.storage.ktx)   // ✅ Added Firebase Storage
     implementation(libs.firebase.firestore.ktx) // ✅ Added Firebase Firestore
     implementation(libs.material)
+    implementation("androidx.gridlayout:gridlayout:1.0.0")  // Added GridLayout dependency
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

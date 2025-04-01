@@ -189,6 +189,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"/>
 
+    <TextView
+        android:id="@+id/actualBudgetTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Actual Budget Distribution"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/summaryText"/>
+
+    <TextView
+        android:id="@+id/actualBudgetText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Enter your budget to see the distribution"
+        android:textSize="16sp"
+        android:textColor="#666666"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/actualBudgetTitle"/>
+
     <Button
         android:id="@+id/button5"
         android:layout_width="350dp"
