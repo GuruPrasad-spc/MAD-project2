@@ -2,6 +2,8 @@ package com.example.mad_project
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +23,7 @@ class second : AppCompatActivity() {
         val continueButton = findViewById<Button>(R.id.button6)
         val totalBudget = findViewById<EditText>(R.id.editTextNumber)
         val textView5 = findViewById<TextView>(R.id.textView5)
-        val summaryTextView = findViewById<TextView>(R.id.textView5) // TextView for displaying results
+        val summaryTextView = findViewById<TextView>(R.id.textView5)
 
         val spinner1 = findViewById<Spinner>(R.id.spinner)
         val spinner2 = findViewById<Spinner>(R.id.spinner2)
@@ -34,7 +36,21 @@ class second : AppCompatActivity() {
 
         // Spinner options
         val spinnerOptions = arrayOf("Food", "Decoration", "Drinks", "Snacks")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerOptions)
+        
+        // Create custom adapter with black text color
+        val adapter = object : ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerOptions) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getView(position, convertView, parent)
+                (view as? TextView)?.setTextColor(0xFF000000.toInt()) // Black color
+                return view
+            }
+
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent)
+                (view as? TextView)?.setTextColor(0xFF000000.toInt()) // Black color
+                return view
+            }
+        }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinner1.adapter = adapter
@@ -47,7 +63,7 @@ class second : AppCompatActivity() {
             finish()
         }
 
-        // Continue button - Calculate budget split and show Login/Register Dialog
+        // Continue button - Calculate budget split and check login state
         continueButton.setOnClickListener {
             val budgetText = totalBudget.text.toString()
             if (budgetText.isNotEmpty()) {
@@ -67,7 +83,8 @@ class second : AppCompatActivity() {
                 // Check if user is already logged in
                 if (auth.currentUser != null) {
                     // User is already logged in, navigate to EventActivity
-                    startActivity(Intent(this, EventActivity::class.java))
+                    val intent = Intent(this, EventActivity::class.java)
+                    startActivity(intent)
                     finish()
                 } else {
                     // User is not logged in, show login/register dialog
@@ -82,7 +99,8 @@ class second : AppCompatActivity() {
     private fun showLoginRegisterDialog() {
         val options = arrayOf("Login", "Register")
         AlertDialog.Builder(this)
-            .setTitle("Choose an option")
+            .setTitle("Please Login or Register")
+            .setMessage("You need to be logged in to continue booking")
             .setItems(options) { _, which ->
                 when (which) {
                     0 -> {
@@ -90,9 +108,14 @@ class second : AppCompatActivity() {
                         intent.putExtra("NAVIGATE_TO_EVENT", true)
                         startActivity(intent)
                     }
-                    1 -> startActivity(Intent(this, RegisterActivity::class.java))
+                    1 -> {
+                        val intent = Intent(this, RegisterActivity::class.java)
+                        intent.putExtra("NAVIGATE_TO_EVENT", true)
+                        startActivity(intent)
+                    }
                 }
             }
+            .setCancelable(false) // User must choose an option
             .show()
     }
 }
